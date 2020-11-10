@@ -9,7 +9,7 @@ Product Versions: JDG 7.0.0, EAP 7.x
 What is it?
 -----------
 
-Implementation of a reliable health check for cache status, including application level checks.
+Implementation of a reliable health check for application level checks.
 
 A thread is scheduled for each configured cache to check via EAP 7.x ManagedScheduledExecutorService
 
@@ -62,6 +62,9 @@ Build and Deploy the Application in Library Mode
 ------------------------------------------------
 
 The reference application for testing purpose is health-check-ref-app
+The health-check is built as a library thatis is embedded in the health-check-ref-app as a library
+
+
 
 
 Debug
@@ -73,16 +76,20 @@ CLI command:
 /subsystem=logging/logger=com.redhat.consulting.jdg.healthcheck:add(level=TRACE)
 
 
-Test the Application using Arquillian and remote EAP instance
+Test the Application on a EAP instance
 -----------------------------------------------------------------
 
-TODO: TEST
+To test the application, the following instruction should be executed
+1. Build the artifact with the following command:
+mvn clean install
+This command will build the health-check-ref-app.war with the healthcheck.library in it's in the WEB-INF/lib folder.
+2. Start EAP/Wildfly with the following command
+./standalone.sh -P /usr/local/dev/eap/jboss-eap-7.3/standalone/configuration/check-config.properties
+This will load the check-config.properties file with the properrties defined as system properties. It's also possible to add them as command lines.
+3. Deploy the healthcheck-ref-app
+cd health-check-ref-app
+mvn wildfly:deploy 
+You can also just copy the healthcheck-ref-app in the EAP deployment folder
 
-If you would like to test the application, there are a couple of unit tests designed to run on a remote EAP/Wildfly instance.
-
-In order to run those test, please do the following steps:
-
-1. Start EAP/Wildfly
-2. Build the quickstart using:
 
         mvn clean test -Peap-remote

@@ -92,4 +92,4 @@ mvn wildfly:deploy
 You can also just copy the healthcheck-ref-app in the EAP deployment folder
 
 
-        mvn clean test -Peap-remote
+        

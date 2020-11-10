@@ -1,0 +1,5 @@
+/usr/local/dev/workspace/codeready/health-check-70-master/health-check/src/main/java/com/redhat/consulting/jdg/healthcheck/configuration/HealthCheckConfiguration.java
+/usr/local/dev/workspace/codeready/health-check-70-master/health-check/src/main/java/com/redhat/consulting/jdg/healthcheck/task/HealthCheckTask.java
+/usr/local/dev/workspace/codeready/health-check-70-master/health-check/src/main/java/com/redhat/consulting/jdg/healthcheck/task/HeatlhCheck.java
+/usr/local/dev/workspace/codeready/health-check-70-master/health-check/src/main/java/com/redhat/consulting/jdg/healthcheck/exception/HealthCheckFailure.java
+/usr/local/dev/workspace/codeready/health-check-70-master/health-check/src/main/java/com/redhat/consulting/jdg/healthcheck/scheduler/HealthCheckManager.java

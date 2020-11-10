@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>JBoss JDG: health check - application reference</title>
+    <h:outputScript library="js" name="jquery-1.6.2.min.js"/>
+    <h:outputStylesheet library="css" name="styles.css"/>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#name').bind('focus', function () {
+                $(this).attr('value', '');
+            });
+        });
+    </script>
+</h:head>
+
+<h:body>
+
+    <div id="wrapper">
+
+        <div id="header"/>
+
+        <div id="content">
+            <h:form prependId="false">
+
+                <h2>
+                    <h:outputText id="cached-values-title"
+                                  value="Cached values - #{distributedCacheController.numberOfEntries}"/>
+                    <h:commandButton value="Refresh">
+                        <f:ajax immediate="true" render="cached-values-title cached-values"/>
+                    </h:commandButton>
+                    <h:commandButton value="Clear cache" action="#{distributedCacheController.clearCache}">
+                        <f:ajax immediate="true" render="cached-values-title cached-values"/>
+                    </h:commandButton>
+                </h2>
+                <ul>
+                    <h:dataTable id="cached-values" value="#{distributedCacheController.cachedValues}" var="oneCachedValue">
+                        <h:column>
+                            <li>
+                                <h:outputText value="#{oneCachedValue}"/>
+                            </li>
+                        </h:column>
+                    </h:dataTable>
+                </ul>
+            </h:form>
+        </div>
+
+        <div id="footer">
+            <h:outputText value="JBoss JDG: health check - application reference"/>
+        </div>
+    </div>
+
+</h:body>
+
+</html>

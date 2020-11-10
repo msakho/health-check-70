@@ -1,0 +1,5 @@
+com/redhat/consulting/jdg/healthcheck/scheduler/HealthCheckManager.class
+com/redhat/consulting/jdg/healthcheck/task/HeatlhCheck.class
+com/redhat/consulting/jdg/healthcheck/exception/HealthCheckFailure.class
+com/redhat/consulting/jdg/healthcheck/configuration/HealthCheckConfiguration.class
+com/redhat/consulting/jdg/healthcheck/task/HealthCheckTask.class

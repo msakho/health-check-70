@@ -31,6 +31,13 @@ public class HealthCheckTask<K> implements Runnable {
 
 			cacheManager.getCache(cachename).put(key, value);
 			hc.healthCheck(cacheManager, cachename, key, value);
+			//TODO: This is only used for debug purpose. Might be removed from the code
+			if(HealthCheckConfiguration.FAILURE_ENABLED)
+			{
+			@SuppressWarnings("unchecked")
+			K mykey=(K) new String(HealthCheckConfiguration.UNKNOWN_KEY);
+			hc.healthCheck(cacheManager, cachename, mykey, value);
+			}
 			
 			
 			resetFailureCount();

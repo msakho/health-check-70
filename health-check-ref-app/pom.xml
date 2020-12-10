@@ -18,6 +18,7 @@
     <properties>
         <maven.test.skip>true</maven.test.skip>
         <version.war.plugin>2.6</version.war.plugin>
+        <version.infinispan>11.0.5.Final</version.infinispan>
     </properties>
 
     <dependencies>
@@ -51,6 +52,27 @@
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-embedded</artifactId>
         </dependency>
+        <!-- dependencies added for the RemoteStore Migration -->
+        
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-server-hotrod</artifactId>
+        
+      </dependency>
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-client-hotrod</artifactId>
+        
+      </dependency>
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-jboss-marshalling</artifactId>
+         <version>${version.infinispan}</version>
+      </dependency>
+      
+     
+      
+      
 
         <!-- Test dependencies -->
         <dependency>

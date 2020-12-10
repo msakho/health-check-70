@@ -36,4 +36,5 @@ public class HealthCheckConfiguration {
 	public static final Boolean REMOVE_KEY_ON_CHECK = Boolean.parseBoolean( System.getProperty("jdg.healthcheck.remove.key.on.check","false" ));
 	public static final Boolean FAILURE_ENABLED = Boolean.parseBoolean( System.getProperty("jdg.healthcheck.failure.enabled","false" ));
 	public static final String UNKNOWN_KEY = System.getProperty("jdg.healthcheck.unknow.key","UNKNOWN");
+	
 }

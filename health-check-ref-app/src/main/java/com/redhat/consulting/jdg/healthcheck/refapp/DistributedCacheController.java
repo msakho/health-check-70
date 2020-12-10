@@ -12,7 +12,6 @@ import javax.inject.Named;
 
 import org.infinispan.manager.EmbeddedCacheManager;
 
-import com.redhat.consulting.jdg.healthcheck.scheduler.HealthCheckManager;
 
 @Named
 @ApplicationScoped

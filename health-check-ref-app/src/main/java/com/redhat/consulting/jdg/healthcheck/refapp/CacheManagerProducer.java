@@ -11,6 +11,7 @@ import javax.enterprise.inject.Produces;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
+import org.infinispan.configuration.cache.VersioningScheme;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.eviction.EvictionStrategy;
@@ -40,12 +41,19 @@ public class CacheManagerProducer {
 		if (cacheManager == null) {
 			LOGGER.info("\n\n DefaultCacheManager does not exist - constructing a new one\n\n");
 
-			GlobalConfiguration glob = new GlobalConfigurationBuilder().clusteredDefault()
+			GlobalConfiguration glob = new GlobalConfigurationBuilder()
+					//.versioning().enable().scheme(VersioningScheme.SIMPLE)	
+					.clusteredDefault()
+					
 					.transport().addProperty("configurationFile", "jgroups-udp.xml")
 					.globalJmxStatistics().allowDuplicateDomains(true).enable() 
+			
 					.build(); // Builds the GlobalConfiguration object
 			Configuration loc = new ConfigurationBuilder().jmxStatistics().enable()
+					
 					.clustering().cacheMode(CacheMode.DIST_SYNC) 
+					
+					
 					.hash().numOwners(2).groups()/* .addGrouper(new CustomGrouper()) */.enabled() // Keeps two copies of  each key/value  pair
 					.expiration().lifespan(ENTRY_LIFESPAN) 
 					.build();
@@ -53,11 +61,17 @@ public class CacheManagerProducer {
 			cacheManager.defineConfiguration("my-distributed", loc);
 			cacheManager.defineConfiguration("two-my-distributed", loc);
 			cacheManager.defineConfiguration("three-my-distributed", loc);
+			cacheManager.defineConfiguration("firstToMigrate", loc);
 			
 			Configuration simple = new ConfigurationBuilder()
-		            .eviction().strategy(EvictionStrategy.LRU).maxEntries(4)
-		            .build();
+					.versioning().enable().scheme(VersioningScheme.SIMPLE)	
+		          .eviction().strategy(EvictionStrategy.LRU).maxEntries(10000)  
+		           .build();
+			
 			cacheManager.defineConfiguration("simple", simple);
+			cacheManager.defineConfiguration("cache", simple);
+			cacheManager.defineConfiguration("secondToMigrate", simple);
+			cacheManager.defineConfiguration("thirdToMigrate", simple);
 			
 		}
 		return cacheManager;

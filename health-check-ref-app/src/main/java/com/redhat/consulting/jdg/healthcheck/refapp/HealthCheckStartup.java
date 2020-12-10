@@ -31,7 +31,7 @@ import com.redhat.consulting.jdg.healthcheck.task.HealthCheckTask;
  * @author Meissa
  */
 @Singleton
-//@Startup
+@Startup
 public class HealthCheckStartup {
 	private static final Logger LOGGER = Logger.getLogger(HealthCheckStartup.class.getName());
 	private static final long ENTRY_LIFESPAN = 60 * 5 * 1000; // 5 minutes
@@ -41,7 +41,7 @@ public class HealthCheckStartup {
     @Inject
 	private EmbeddedCacheManager cacheManager;
 	
-	//@PostConstruct
+	@PostConstruct
 	public void start() {
 		LOGGER.info("**************HEALTH CHECK INITIALIZATION ***********************\n\n");
 		//cacheManager = getCacheManager();

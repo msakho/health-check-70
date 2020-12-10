@@ -38,7 +38,7 @@ public class HealthCheckTask<K> implements Runnable {
 			K mykey=(K) new String(HealthCheckConfiguration.UNKNOWN_KEY);
 			hc.healthCheck(cacheManager, cachename, mykey, value);
 			}
-			
+
 			
 			resetFailureCount();
 		} catch (HealthCheckFailure e) {

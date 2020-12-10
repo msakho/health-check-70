@@ -45,6 +45,7 @@ public class HotRodConfigStartup {
 	{
 		manager = new DefaultCacheManager();
 		Configuration builder = new ConfigurationBuilder()
+				.compatibility().enable()
 				.versioning().enable().scheme(VersioningScheme.SIMPLE)	
 	           .build();
 		manager.defineConfiguration("cache", builder);

@@ -50,10 +50,8 @@ public class CacheManagerProducer {
 			
 					.build(); // Builds the GlobalConfiguration object
 			Configuration loc = new ConfigurationBuilder().jmxStatistics().enable()
-					
+			      .compatibility().enable()
 					.clustering().cacheMode(CacheMode.DIST_SYNC) 
-					
-					
 					.hash().numOwners(2).groups()/* .addGrouper(new CustomGrouper()) */.enabled() // Keeps two copies of  each key/value  pair
 					.expiration().lifespan(ENTRY_LIFESPAN) 
 					.build();
@@ -65,8 +63,9 @@ public class CacheManagerProducer {
 			
 			Configuration simple = new ConfigurationBuilder()
 					.versioning().enable().scheme(VersioningScheme.SIMPLE)	
-		          .eviction().strategy(EvictionStrategy.LRU).maxEntries(10000)  
-		           .build();
+					.eviction().strategy(EvictionStrategy.LRU).maxEntries(10000)
+					.compatibility().enable()
+		         .build();
 			
 			cacheManager.defineConfiguration("simple", simple);
 			cacheManager.defineConfiguration("cache", simple);

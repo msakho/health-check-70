@@ -6,7 +6,7 @@ Product Versions: JDG 7.0.0, EAP 7.x
 What is it?
 -----------
 
-This reference application demontrates usage of JDG-health check artifact.
+This reference application demontrates usage of JDG-health check artifact and RollingUpgrade Migration
 
 System requirements
 -------------------
@@ -40,10 +40,10 @@ Build and Deploy the Application in Library Mode
 
 4. This will deploy `target/health-check-ref-app.war` to the running instance of the server.
 
-Access the application
+Expose the HotRod Server for future Migration
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/health-check-ref-app/>
+
 
 Undeploy the Archive
 --------------------

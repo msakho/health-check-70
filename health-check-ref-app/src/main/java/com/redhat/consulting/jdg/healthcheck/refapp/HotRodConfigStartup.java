@@ -27,7 +27,7 @@ import org.infinispan.server.hotrod.configuration.HotRodServerConfigurationBuild
 
 /**
  * 
- * This Startup class will configure a cache Manager and expose a HotRod Server .
+ * This Startup class will configure a cache Manager and expose a HotRod Server so that the defined cahces can be migrated .
  */
 @Singleton
 @Startup
@@ -48,13 +48,32 @@ public class HotRodConfigStartup {
 				.compatibility().enable()
 				.versioning().enable().scheme(VersioningScheme.SIMPLE)	
 	           .build();
-		manager.defineConfiguration("cache", builder);
+		manager.defineConfiguration("firstToMigrate", builder);
+		manager.defineConfiguration("secondToMigrate", builder);
+		manager.defineConfiguration("thirdToMigrate", builder);
 		
-		
-		Cache<String,Object> cacheToMigrate = manager.getCache("cache");
-		for (int i = 0; i < 100; i++) {
-			cacheToMigrate.put("k" + i, "v" + i);
+		LOGGER.info("INITIALIZE CACHES TO MIGRATE");
+		Cache<String,Object> firstToMigrate = manager.getCache("firstToMigrate");
+		for (int i = 0; i < 1000; i++) {
+			firstToMigrate.put("k" + i, "v" + i);
          }
+		
+		Cache<String,Object> secondToMigrate = manager.getCache("secondToMigrate");
+		for (int i = 0; i < 2000; i++) {
+			secondToMigrate.put("k" + i, "v" + i);
+         }
+		
+		Cache<String,Object> thirdToMigrate = manager.getCache("thirdToMigrate");
+		for (int i = 0; i < 4000; i++) {
+			thirdToMigrate.put("k" + i, "v" + i);
+         }
+		
+		
+		
+		
+		
+		
+		
 				
 		LOGGER.info("********************** START EXPOSING HOT ROD***********************");
 		HotRodServerConfiguration hotRodServerConfiguration = new HotRodServerConfigurationBuilder()

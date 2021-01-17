@@ -42,7 +42,6 @@ public class CacheManagerProducer {
 			LOGGER.info("\n\n DefaultCacheManager does not exist - constructing a new one\n\n");
 
 			GlobalConfiguration glob = new GlobalConfigurationBuilder()
-					//.versioning().enable().scheme(VersioningScheme.SIMPLE)	
 					.clusteredDefault()
 					
 					.transport().addProperty("configurationFile", "jgroups-udp.xml")
@@ -52,7 +51,7 @@ public class CacheManagerProducer {
 			Configuration loc = new ConfigurationBuilder().jmxStatistics().enable()
 			      .compatibility().enable()
 					.clustering().cacheMode(CacheMode.DIST_SYNC) 
-					.hash().numOwners(2).groups()/* .addGrouper(new CustomGrouper()) */.enabled() // Keeps two copies of  each key/value  pair
+					.hash().numOwners(2).groups().enabled() 
 					.expiration().lifespan(ENTRY_LIFESPAN) 
 					.build();
 			cacheManager = new DefaultCacheManager(glob, loc, true);

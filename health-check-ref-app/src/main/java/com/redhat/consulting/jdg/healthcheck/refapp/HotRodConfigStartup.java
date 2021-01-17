@@ -41,39 +41,41 @@ public class HotRodConfigStartup {
 	HotRodServer server = null;
 	
 	@PostConstruct
+	/**
+	 * This method is called at application startup. It purpose is:
+	 * 1) Initilize the Cache Manager,
+	 * 2) Enable the compatibility mode,
+	 * 3) Expose the HotRod server.
+	 */
 	public void init()
 	{
+		
+		System.setProperty("infinispan.deserialization.whitelist.regexps", ".*");
 		manager = new DefaultCacheManager();
 		Configuration builder = new ConfigurationBuilder()
 				.compatibility().enable()
-				.versioning().enable().scheme(VersioningScheme.SIMPLE)	
+				//.versioning().enable().scheme(VersioningScheme.SIMPLE)	
 	           .build();
 		manager.defineConfiguration("firstToMigrate", builder);
 		manager.defineConfiguration("secondToMigrate", builder);
 		manager.defineConfiguration("thirdToMigrate", builder);
 		
 		LOGGER.info("INITIALIZE CACHES TO MIGRATE");
-		Cache<String,Object> firstToMigrate = manager.getCache("firstToMigrate");
-		for (int i = 0; i < 1000; i++) {
+		Cache<String,String> firstToMigrate = manager.getCache("firstToMigrate");
+		for (int i = 0; i < 10; i++) {
 			firstToMigrate.put("k" + i, "v" + i);
          }
 		
-		Cache<String,Object> secondToMigrate = manager.getCache("secondToMigrate");
-		for (int i = 0; i < 2000; i++) {
+		Cache<String,String> secondToMigrate = manager.getCache("secondToMigrate");
+		for (int i = 0; i < 20; i++) {
 			secondToMigrate.put("k" + i, "v" + i);
          }
 		
-		Cache<String,Object> thirdToMigrate = manager.getCache("thirdToMigrate");
-		for (int i = 0; i < 4000; i++) {
+		Cache<String,String> thirdToMigrate = manager.getCache("thirdToMigrate");
+		for (int i = 0; i < 40; i++) {
 			thirdToMigrate.put("k" + i, "v" + i);
          }
-		
-		
-		
-		
-		
-		
-		
+			
 				
 		LOGGER.info("********************** START EXPOSING HOT ROD***********************");
 		HotRodServerConfiguration hotRodServerConfiguration = new HotRodServerConfigurationBuilder()
